@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the accompanying paper (reference below will be updated upon publication)."
+title: "Multi-Sensor vd-FPCA for Real-Time RUL Prediction"
+type: software
+authors:
+  - family-names: Yildirim
+    given-names: Cevahir
+    affiliation: "Universidad Carlos III de Madrid, uc3m-Santander Big Data Institute"
+  - family-names: Franco-Pereira
+    given-names: Alba M.
+    affiliation: "Universidad Complutense de Madrid"
+  - family-names: Kundu
+    given-names: Pradeep
+    affiliation: "Indian Institute of Technology Indore"
+  - family-names: Lillo
+    given-names: Rosa E.
+    affiliation: "Universidad Carlos III de Madrid, uc3m-Santander Big Data Institute"
+repository-code: "https://github.com/cevahiryildirim/PHM-multi-sensor-real-time-vd-FPCA"
+license: CC-BY-4.0
+preferred-citation:
+  type: article
+  title: "Real-Time Remaining Useful Life Prediction with Multi-Sensor Variable-Domain Functional Principal Component Analysis"
+  authors:
+    - family-names: Yildirim
+      given-names: Cevahir
+    - family-names: Franco-Pereira
+      given-names: Alba M.
+    - family-names: Kundu
+      given-names: Pradeep
+    - family-names: Lillo
+      given-names: Rosa E.
+  journal: "(under review)"
+  year: 2026
