@@ -87,6 +87,17 @@ from the unit's full observed window; "score-trajectory summaries" condense
 each (sensor, component) score history into six statistics (current value,
 mean, SD, slope, mean of last five, current-minus-midpoint).
 
+## Animations
+
+The `animations/` folder contains animated versions of the real-time
+mechanism (the supplementary videos of the paper):
+
+| File | Content |
+|------|---------|
+| `W32_engine_040_online_rul_XGB.gif` | Online RUL prediction for test engine 40 (sensor W32 shown): as the observation stream extends cycle by cycle, the eligible training set is re-formed and the predicted RUL trajectory is updated in place |
+| `T30_test_engine_007_score_history.gif` | Evolution of the T30 score representation for a test engine: observed trajectory, score path over the growing domain, and PC1–PC2 phase plane advancing together |
+| `T30_test_engine_007_PC1_distribution.gif` | The test engine's first-component score inside the historical score distribution of the eligible training units at each horizon |
+
 ## Citation
 
 If you use this code, please cite the paper (reference to be added upon
