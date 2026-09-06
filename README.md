@@ -14,7 +14,7 @@ life (RUL) with a panel of supervised learners.
 | `run_all.R` | End-to-end driver: sources steps 01–06 in order, writes checkpoints to `output/` |
 | `01-vd-functions.R` | vd-FPCA helper functions (quadrature weights, covariance-slice prediction; adapted from Johns et al., 2019, JCGS) |
 | `02-data-preparation.R` | Loads the per-sensor CSVs, min–max normalizes, builds `<s>traindata` (100×362), `<s>testdata` (100×303) for the 9 sensors and `RUL_TRUE` |
-| `03-vdfpca-estimation.R` | Per-sensor vd-FPCA on training data: mean surface `gam(y ~ s(time, maxT))`, covariance surface, eigenfunctions per domain length (`pc_grid_<s>`, m = 3…303) |
+| `03-vdfpca-estimation.R` | Per-sensor vd-FPCA on training data: mean surface `gam(y ~ s(time, maxT))`, covariance surface, eigenfunctions per domain length (`pc_grid_<s>`, m = 2…303) |
 | `04-realtime-scores.R` | Real-time score lists: for each test engine and each history step h (h = 1 is the full observed window), start-aligned scores of the test engine and of every eligible train engine (life ≥ OBS) at domain m = OBS−h+1. Mean surfaces are fit on eligible **training** curves only; the eigenbasis is training-only throughout |
 | `05-feature-matrices.R` | Assembles the supervised feature matrices `binded_all_input` (K=3), `binded_all_input_PC1_2` (K=2), `binded_all_input_PC1` (K=1): one 101-row matrix per test engine (100 train rows + the test engine as row 101), last column = LIFE |
 | `06-rul-prediction.R` | The 9 learner configurations reported in the paper (SVR, elastic net, Gaussian process, boosted ridge, random forest, XGBoost, LightGBM, k-NN) with per-engine CV tuning; evaluates RMSE / MAE / Saxena score and writes `output/prediction_results.csv` |

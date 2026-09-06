@@ -7,7 +7,7 @@
 ## - Helper functions from 01-vd-functions.R
 #######################################################
 
-lowest <- 3
+lowest <- 2
 highest <- 303
 gridM <- seq(lowest, highest, by = 1)
 
