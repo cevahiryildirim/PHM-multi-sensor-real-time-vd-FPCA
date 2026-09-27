@@ -1,7 +1,14 @@
 #######################################################
-## run_all.R — end-to-end reproduction
+## run_all.R — exploratory comparison of the nine learners
 ##
-## Runs the full multi-sensor vd-FPCA real-time RUL pipeline:
+## NOTE: this is NOT the protocol reported in the paper. It fits every
+## configuration directly on the test engines and is kept only as the
+## exploratory comparison. For the results in the paper use the two-step
+## protocol instead:
+##     source("run_cv_selection.R")   # selection on the training engines
+##     source("run_final_test.R")     # one evaluation on the test engines
+##
+## Steps run here:
 ##   01 helper functions -> 02 data -> 03 vd-FPCA estimation ->
 ##   04 real-time score lists -> 05 feature matrices -> 06 prediction.
 ## Checkpoints are written to output/ after the expensive stages so a

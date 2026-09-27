@@ -48,7 +48,6 @@ fit_covariance_surface <- function(sensor_cov_data) {
 
 run_sensor_vdfpca <- function(sensor_prefix, target_env = parent.frame()) {
   train_matrix_name <- paste0(sensor_prefix, "traindata")
-  test_matrix_name <- paste0(sensor_prefix, "testdata")
 
   train_long_name <- paste0(sensor_prefix, "traindata_long")
   train_l2_name <- paste0(sensor_prefix, "traindata_l2")
@@ -57,12 +56,9 @@ run_sensor_vdfpca <- function(sensor_prefix, target_env = parent.frame()) {
   cov_fit_name <- paste0("cov_", sensor_prefix, "traindata")
   pc_grid_name <- paste0("pc_grid_", sensor_prefix)
 
-  test_long_name <- paste0(sensor_prefix, "testdata_long")
-  test_l2_name <- paste0(sensor_prefix, "testdata_l2")
-  test_fit_name <- paste0("fit_", sensor_prefix, "traindata_new")
-
+  ## Only the training curves enter this step: the mean surface, the
+  ## covariance surface and the eigenfunctions are all estimated from them.
   train_matrix <- get(train_matrix_name, envir = target_env, inherits = TRUE)
-  test_matrix <- get(test_matrix_name, envir = target_env, inherits = TRUE)
 
   train_data <- build_sensor_long_data(train_matrix)
   assign(train_long_name, train_data$long_data, envir = target_env)
@@ -87,16 +83,6 @@ run_sensor_vdfpca <- function(sensor_prefix, target_env = parent.frame()) {
   pc_grid <- get_pcs_M(gridM, cov_fit, Hz = 1, includezero = FALSE, npcs = 3)
   assign(pc_grid_name, pc_grid, envir = target_env)
 
-  test_data <- build_sensor_long_data(test_matrix)
-  assign(test_long_name, test_data$long_data, envir = target_env)
-  assign("ndays_df_test", test_data$ndays_df, envir = target_env)
-
-  test_l2 <- test_data$l2_data
-  assign(test_l2_name, test_l2, envir = target_env)
-
-  test_fit <- fit_mean_surface(test_l2)
-  assign(test_fit_name, test_fit, envir = target_env)
-
   invisible(
     list(
       train_long_name = train_long_name,
@@ -104,10 +90,7 @@ run_sensor_vdfpca <- function(sensor_prefix, target_env = parent.frame()) {
       train_fit_name = train_fit_name,
       train_cov_name = train_cov_name,
       cov_fit_name = cov_fit_name,
-      pc_grid_name = pc_grid_name,
-      test_long_name = test_long_name,
-      test_l2_name = test_l2_name,
-      test_fit_name = test_fit_name
+      pc_grid_name = pc_grid_name
     )
   )
 }

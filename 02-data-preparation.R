@@ -32,13 +32,9 @@ prepare_sensor_dataset <- function(file_name,
   )
 
   raw_matrix <- as.matrix(all_train_test[, total_cols])
-  ## NOTE: min/max for the normalization are computed over the pooled
-  ## train+test matrix (rows 1:200). This is a mild transductive choice
-  ## (test sensor ranges influence the scaling constants). A strictly
-  ## inductive alternative is min/max over train rows only; changing it
-  ## would shift all downstream surfaces and scores, so it is documented
-  ## here rather than silently altered.
-  observed_values <- na.omit(as.vector(raw_matrix))
+  ## Min-max constants are estimated from the TRAINING rows only and then
+  ## applied unchanged to the test rows (inductive normalization).
+  observed_values <- na.omit(as.vector(raw_matrix[train_rows, , drop = FALSE]))
   min_value <- min(observed_values)
   max_value <- max(observed_values)
 

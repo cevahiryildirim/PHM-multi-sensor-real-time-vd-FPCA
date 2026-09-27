@@ -11,20 +11,18 @@
 ## from their FIRST m cycles (start-aligned), using the train-estimated
 ## eigenfunctions at domain m.
 ##
-## Output (names/structure identical to the original script):
+## Output:
 ##   list_scores_<sensor>_minus[[h]][[testeng]][[trainno]]  = c(PC1, PC2, PC3)
 ##   Empty/NULL slots mean "not available" (h beyond the test window, or
 ##   ineligible train engine) — downstream 05-feature-matrices.R checks
 ##   length()==0.
 ##
-## FIXES vs the original exploratory script (results differ slightly):
-##  (1) The mean surface is fit on ELIGIBLE TRAIN curves only; the test
-##      engine's curve no longer enters mean estimation (matches the paper's
-##      "no test data enter the estimation step").
-##  (2) The mean used at domain m is mu(t; maxT = m) — the vd-FPCA
-##      conditional mean — instead of mu(t; maxT = OBS_i) truncated to 1:m.
-##  (3) The mean GAM is fit ONCE per (sensor, test engine) instead of once
-##      per (sensor, test engine, h): ~q_i times fewer GAM fits (days -> ~1 h).
+## Centering (risk-set centering, Section 2.4 of the paper):
+##  (1) The mean surface is fit on the ELIGIBLE TRAIN curves only, so no test
+##      trajectory enters mean estimation.
+##  (2) The mean used at domain m is the conditional mean mu(t; maxT = m).
+##  (3) The mean GAM is fit once per (sensor, test engine), since the eligible
+##      set is determined by OBS_i and does not change with h.
 ##
 ## Index convention (VERIFIED): pc_grid_<s>$efunctions[[k]] holds the
 ## eigenfunctions for domain length m = k + 1 (a (k+1) x npc matrix), so the

@@ -1,17 +1,11 @@
 #######################################################
 ##Load required libraries
-#install.packages(c("reshape2", "plyr", "dplyr", "caTools", "refund", "mgcv", "patchwork", "gifski"))
+#install.packages(c("reshape2", "plyr", "dplyr", "caTools", "mgcv"))
 library(reshape2)
 library(plyr)
 library(dplyr)
 library(caTools)
-library(refund)
 library(mgcv)
-library(patchwork)
-library(gifski)
-
-#load data from Refund
-data(sofa)
 #######################################################
 
 #######################################################

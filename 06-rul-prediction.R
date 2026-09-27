@@ -1,8 +1,15 @@
 #######################################################
 ## 06-rul-prediction.R
 ##
-## Supervised RUL prediction and evaluation for the 9 learner
-## configurations reported in the paper. For every test engine j:
+## Definitions of the nine learners and of the two input representations,
+## reused by 07-training-cv-selection.R and run_final_test.R.
+##
+## Run on its own, this file performs the EXPLORATORY comparison: it fits a
+## fixed set of configurations directly on the test engines. That is neither
+## the protocol nor the table reported in the paper, which come from
+## run_cv_selection.R followed by run_final_test.R.
+##
+## In the exploratory comparison, for every test engine j:
 ##   - take its feature matrix (100 train rows + row 101 = test engine),
 ##   - keep eligible train rows (complete cases = lives >= OBS_j),
 ##   - train on the capped RUL target  y_i = min(LIFE_i - OBS_j, 125)
@@ -11,9 +18,8 @@
 ## Metrics over the 100 test engines (both predicted and true RUL capped
 ## at 125): RMSE, MAE, and the asymmetric score of Saxena et al. (2008).
 ##
-## Reproducibility: per-engine seed set.seed(1000 + j) fixes CV folds and
-## stochastic learners; with the package versions in the README this script
-## reproduces the paper's table exactly.
+## Reproducibility: the per-engine seed set.seed(1000 + j) fixes the CV folds
+## and the stochastic learners.
 ##
 ## Expected upstream objects (step 05): binded_all_input (K=3),
 ## binded_all_input_PC1_2 (K=2), RUL_TRUE. If absent, the checkpoint
@@ -220,7 +226,11 @@ fit_knn <- function(X, y, Xte, n) {
   knn.reg(train = X, test = Xte, y = y, k = best$k)$pred
 }
 
-## ---- the 8 configurations reported in the paper ------------------------
+## ---- CONFIG-BLOCK-START ------------------------------------------------
+## Everything above this marker is the shared definition block (feature
+## builders and fit_* functions). 07-training-cv-selection.R and
+## run_final_test.R read this file and evaluate only that block, so do not
+## change the marker text without updating them.
 configs <- list(
   list(name = "SVR (radial), score-trajectory summaries, K=2",
        input = "K2", mode = "summ", fit = fit_svr,    std = TRUE),
